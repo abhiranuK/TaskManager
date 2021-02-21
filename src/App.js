@@ -1,8 +1,10 @@
 import TaskManager from './TaskManager/Taskmanager'
 function App() {
   return (
-      <TaskManager/>
-  );
+    <div className='container'>
+      <TaskManager />
+    </div>
+  )
 }
 
-export default App;
+export default App

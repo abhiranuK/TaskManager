@@ -1,21 +1,50 @@
-import React from 'react';
-import './AddedTaskList.css';
+import React from 'react'
+import './AddedTaskList.css'
 
-
-const AddedTaskList = (props) => {  
-    
-   return (
-           <>
-            <h2 className="task-header">you have n Tasks pending</h2>
-            
-               {props.tasks.map(ig => (
-                   <span className="bigbox" key={ig.id} onClick={ props.deletetask.bind(this, ig.id) }>
-                        <span className="title">{ig.title}</span>
-                        <span>{ig.description}</span>
-                    </span>
-                ))}            
-        </>
-    )
+const AddedTaskList = (props) => {
+  return (
+    <>
+      {props.tasks.map((ig) => (
+        <div
+          key={ig.id}
+          id='tasklist'
+          className={`card  ${
+            ig.status === 'pending' ? 'pending' : 'completed'
+          }`}
+        >
+          <div className='card-header'>
+            {ig.status === 'pending' ? (
+              <span>Task added on </span>
+            ) : (
+              <span>Task completed on </span>
+            )}
+            <strong>{ig.time}</strong>
+            {ig.status === 'pending' ? (
+              <button
+                className='btn btn-success'
+                onClick={props.changeStatus.bind(this, ig.id)}
+              >
+                mark completed
+              </button>
+            ) : (
+              <button
+                className='btn btn-success'
+                onClick={props.deletetask.bind(this, ig.id)}
+              >
+                Delete Task
+              </button>
+            )}
+          </div>
+          <div className='card-body text-center'>
+            <h5 className='card-title text-capitalize'>
+              <strong>{ig.title}</strong>
+            </h5>
+            <p className='card-text'>{ig.description}</p>
+          </div>
+        </div>
+      ))}
+    </>
+  )
 }
 
-export default AddedTaskList;
+export default AddedTaskList

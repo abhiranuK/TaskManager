@@ -1,48 +1,69 @@
-import React, { useState } from 'react';
-import './AddTask.css';
-import Card from './Card';
+import React, { useState } from 'react'
+import './AddTask.css'
 
 const AddTask = (props) => {
-    const [titleState, settitleState] = useState('');
-    const [descriptionState, setDescriptionState] = useState('');
+  const [titleState, settitleState] = useState('')
+  const [descriptionState, setDescriptionState] = useState('')
 
-    const addnewTaskData = (event) => {
-        let data = {
-            title: titleState,
-            description: descriptionState,
-            time: new Date()
-        };
-        props.onAddTaskData(data);
-        event.preventDefault();
-    };
+  const addnewTaskData = (event) => {
+    let newtime = new Date()
 
-    return (
-        <section className="task-form">
-            <h1 className= "header-center">Task Manager</h1>
-            <Card>
-                <form onSubmit={addnewTaskData }>
-                    <div className="form-control">
-                        <label htmlFor="title" className="title-style">Title</label>
-                        <input type="text" id="title"  value={titleState} onChange={event => {
-                            settitleState(event.target.value);
-                        }}
-                        />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="description">Description</label>
-                        <textarea role="textbox" rows="4" cols="60" type="text" id="description" value={descriptionState}
+    let data = {
+      title: titleState,
+      description: descriptionState,
+      time: newtime.toDateString(),
+      status: 'pending',
+    }
+    props.onAddTaskData(data)
+    event.preventDefault()
+  }
 
-                            onChange={event => {
-                                setDescriptionState(event.target.value);
-                            }}/>
-                    </div>
-                    <div className="task-form__actions">
-                        <button type="submit">Add Task</button>
-                    </div>
-                </form>
-            </Card>
-        </section>
-    );
+  return (
+    <div className='container add-task'>
+      <form onSubmit={addnewTaskData}>
+        <div className='form-group row'>
+          <label htmlFor='title' className='control-label col-sm-2'>
+            Title
+          </label>
+          <div className='col-sm-10'>
+            <input
+              className='form-control '
+              type='text'
+              id='title'
+              value={titleState}
+              onChange={(event) => {
+                settitleState(event.target.value)
+              }}
+            />
+          </div>
+        </div>
+        <div className='form-group row'>
+          <label htmlFor='description' className='control-label col-sm-2'>
+            Description
+          </label>
+          <div className='col-sm-10'>
+            <textarea
+              className='form-control'
+              role='textbox'
+              type='text'
+              id='description'
+              value={descriptionState}
+              onChange={(event) => {
+                setDescriptionState(event.target.value)
+              }}
+            />
+          </div>
+        </div>
+        <div className='form-group'>
+          <div className='text-center'>
+            <button type='submit' className='btn btn-primary'>
+              Add Task
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  )
 }
 
-export default AddTask;
+export default AddTask
